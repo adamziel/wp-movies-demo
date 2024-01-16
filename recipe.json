@@ -1,0 +1,261 @@
+{
+	"$schema": "./recipe-schema.json",
+	"wxrs": [
+		"wp_sampledata_actors.xml",
+		"wp_sampledata_movies.xml",
+		"wp_sampledata_media.xml"
+	],
+	"blocks": ["src/blocks/interactive/*", "src/blocks/non-interactive/*"],
+	"blockVariations": {
+		"core/query": [
+			{
+				"name": "wpmobies/movies-query-loop",
+				"title": "Movies Query Loop",
+				"attributes": {
+					"namespace": "wp-movies-demo",
+					"query": {
+						"postType": "movies",
+						"perPage": 4,
+						"pages": 0,
+						"offset": 0,
+						"order": "asc",
+						"orderBy": "title",
+						"author": "",
+						"search": "",
+						"exclude": [],
+						"sticky": "",
+						"inherit": false,
+						"parents": []
+					},
+					"displayLayout": {
+						"type": "flex",
+						"columns": 4
+					},
+					"align": "wide",
+					"layout": {
+						"inherit": true,
+						"justifyContent": "left"
+					}
+				},
+				"innerBlocks": [
+					[
+						"core/post-template",
+						{},
+						[
+							[
+								"core/post-featured-image",
+								{
+									"isLink": true
+								},
+								[]
+							],
+							[
+								"core/post-title",
+								{
+									"level": 3,
+									"isLink": true,
+									"fontSize": "large"
+								},
+								[]
+							]
+						]
+					],
+					["core/query-pagination"],
+					["core/query-no-results"]
+				]
+			},
+			{
+				"name": "wpmobies/movies-query-loop",
+				"title": "Cast Query Loop",
+				"attributes": {
+					"namespace": "wp-movies-demo",
+					"query": {
+						"postType": "actors",
+						"perPage": 4,
+						"pages": 0,
+						"offset": 0,
+						"order": "asc",
+						"orderBy": "title",
+						"author": "",
+						"search": "",
+						"exclude": [],
+						"sticky": "",
+						"inherit": false,
+						"parents": []
+					},
+					"displayLayout": {
+						"type": "flex",
+						"columns": 4
+					},
+					"align": "wide",
+					"layout": {
+						"inherit": true,
+						"justifyContent": "left"
+					}
+				},
+				"innerBlocks": [
+					[
+						"core/post-template",
+						{},
+						[
+							[
+								"core/post-featured-image",
+								{
+									"isLink": true
+								},
+								[]
+							],
+							[
+								"core/post-title",
+								{
+									"level": 3,
+									"isLink": true,
+									"fontSize": "large"
+								},
+								[]
+							]
+						]
+					],
+					["core/query-pagination"],
+					["core/query-no-results"]
+				]
+			}
+		]
+	},
+	"translationDomain": "wp-movies-demo",
+	"scripts": [
+		{
+			"/**/": "An alternative to blockVariations above:",
+			"handle": "query-loop-variations",
+			"src": "build/query-loop-variations.js",
+			"deps": ["wp-blocks"],
+			"enqueue_on_hooks": ["admin_enqueue_scripts"]
+		}
+	],
+	"themes": [
+		{
+			"path": "./wp-movies-theme",
+			"activate": true
+		}
+	],
+	"postTypes": {
+		"movies": {
+			"$args": {
+				"label": "Movies",
+				"labels": {
+					"name": "Movies",
+					"singular_name": "Movie"
+				},
+				"description": "",
+				"public": true,
+				"publicly_queryable": true,
+				"show_ui": true,
+				"show_in_rest": true,
+				"rest_base": "",
+				"rest_controller_class": "WP_REST_Posts_Controller",
+				"rest_namespace": "wp/v2",
+				"has_archive": "movies",
+				"show_in_menu": true,
+				"show_in_nav_menus": true,
+				"delete_with_user": false,
+				"exclude_from_search": false,
+				"capability_type": "post",
+				"map_meta_cap": true,
+				"hierarchical": false,
+				"can_export": true,
+				"rewrite": {
+					"slug": "movies",
+					"with_front": true
+				},
+				"query_var": true,
+				"supports": ["title", "editor", "thumbnail", "custom-fields"],
+				"taxonomies": ["category"],
+				"show_in_graphql": false
+			}
+		},
+		"actors": {
+			"label": "Actors",
+			"labels": {
+				"name": "Actors",
+				"singular_name": "Actor"
+			},
+			"description": "",
+			"public": true,
+			"publicly_queryable": true,
+			"show_ui": true,
+			"show_in_rest": true,
+			"rest_base": "",
+			"rest_controller_class": "WP_REST_Posts_Controller",
+			"rest_namespace": "wp/v2",
+			"has_archive": true,
+			"show_in_menu": true,
+			"show_in_nav_menus": true,
+			"delete_with_user": false,
+			"exclude_from_search": false,
+			"capability_type": "post",
+			"map_meta_cap": true,
+			"hierarchical": false,
+			"can_export": true,
+			"rewrite": {
+				"slug": "actors",
+				"with_front": true
+			},
+			"query_var": true,
+			"supports": ["title", "editor", "thumbnail", "custom-fields"],
+			"taxonomies": ["movies"],
+			"show_in_graphql": false
+		}
+	},
+	"taxonomies": {
+		"actors_tax": {
+			"label": "Actors",
+			"labels": {
+				"name": "Actors",
+				"singular_name": "Actor"
+			},
+			"objectType": ["movies"],
+			"public": true,
+			"publicly_queryable": true,
+			"hierarchical": false,
+			"show_ui": true,
+			"show_in_menu": true,
+			"show_in_nav_menus": true,
+			"query_var": true,
+			"rewrite": {
+				"slug": "actors_tax",
+				"with_front": true
+			},
+			"show_admin_column": false,
+			"show_in_rest": true,
+			"show_tagcloud": false,
+			"rest_base": "actors_tax",
+			"rest_controller_class": "WP_REST_Terms_Controller",
+			"rest_namespace": "wp/v2",
+			"show_in_quick_edit": false,
+			"sort": false,
+			"show_in_graphql": false
+		},
+		"movies_tax": {
+			"label": "Movies",
+			"labels": { "name": "Movies", "singular_name": "Movie" },
+			"objectType": ["actors"],
+			"public": true,
+			"publicly_queryable": true,
+			"hierarchical": false,
+			"show_ui": true,
+			"show_in_menu": true,
+			"show_in_nav_menus": true,
+			"query_var": true,
+			"rewrite": { "slug": "movies_tax", "with_front": true },
+			"show_admin_column": false,
+			"show_in_rest": true,
+			"show_tagcloud": false,
+			"rest_base": "movies_tax",
+			"rest_controller_class": "WP_REST_Terms_Controller",
+			"rest_namespace": "wp/v2",
+			"show_in_quick_edit": false,
+			"sort": false,
+			"show_in_graphql": false
+		}
+	}
+}

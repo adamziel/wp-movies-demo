@@ -1,0 +1,351 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"properties": {
+		"wxrs": { "type": "array", "items": { "type": "string" } },
+		"translationDomain": { "type": "string" },
+		"blocks": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"blockVariations": {
+			"type": "object",
+			"description": "TODO"
+		},
+		"plugins": {
+			"type": "array",
+			"items": {
+				"type": ["string", "object"],
+				"properties": {
+					"path": {
+						"type": "string"
+					},
+					"activate": {
+						"type": "boolean"
+					}
+				}
+			}
+		},
+		"themes": {
+			"type": "array",
+			"items": {
+				"type": ["string", "object"],
+				"properties": {
+					"path": {
+						"type": "string"
+					},
+					"activate": {
+						"type": "boolean"
+					}
+				}
+			}
+		},
+		"scripts": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"handle": { "type": "string" },
+					"path": { "type": "string" },
+					"dependencies": {
+						"type": "array",
+						"items": { "type": "string" }
+					},
+					"version": { "type": "string" },
+					"strategy": { "type": "string" },
+					"in_footer": { "type": "boolean" },
+					"enqueue_on_hooks": {
+						"type": "array",
+						"items": { "type": "string" }
+					}
+				}
+			}
+		},
+		"styles": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"handle": { "type": "string" },
+					"path": { "type": "string" },
+					"dependencies": {
+						"type": "array",
+						"items": { "type": "string" }
+					},
+					"version": { "type": "string" },
+					"media": { "type": "string" },
+					"enqueue_on_hooks": {
+						"type": "array",
+						"items": { "type": "string" }
+					}
+				}
+			}
+		},
+		"taxonomies": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"type": "object",
+						"properties": {
+							// details for each label like 'name', 'singular_name', etc.
+						}
+					},
+					"objectType": {
+						"type": "array",
+						"items": { "type": "string" }
+					},
+					"description": { "type": "string" },
+					"public": { "type": "boolean" },
+					"publicly_queryable": { "type": "boolean" },
+					"hierarchical": { "type": "boolean" },
+					"show_ui": { "type": "boolean" },
+					"show_in_menu": { "type": "boolean" },
+					"show_in_nav_menus": { "type": "boolean" },
+					"show_in_rest": { "type": "boolean" },
+					"rest_base": { "type": "string" },
+					"rest_namespace": { "type": "string" },
+					"rest_controller_class": { "type": "string" },
+					"show_tagcloud": { "type": "boolean" },
+					"show_in_quick_edit": { "type": "boolean" },
+					"show_admin_column": { "type": "boolean" },
+					"meta_box_cb": {
+						"oneOf": [{ "type": "boolean" }, { "type": "string" }]
+					},
+					"meta_box_sanitize_cb": { "type": "string" },
+					"capabilities": {
+						"type": "object",
+						"properties": {
+							"manage_terms": { "type": "string" },
+							"edit_terms": { "type": "string" },
+							"delete_terms": { "type": "string" },
+							"assign_terms": { "type": "string" }
+						}
+					},
+					"rewrite": {
+						"oneOf": [
+							{ "type": "boolean" },
+							{
+								"type": "object",
+								"properties": {
+									"slug": { "type": "string" },
+									"with_front": { "type": "boolean" },
+									"hierarchical": { "type": "boolean" },
+									"ep_mask": { "type": "integer" }
+								}
+							}
+						]
+					},
+					"query_var": {
+						"oneOf": [{ "type": "boolean" }, { "type": "string" }]
+					},
+					"update_count_callback": { "type": "string" },
+					"default_term": {
+						"type": "object",
+						"properties": {
+							"name": { "type": "string" },
+							"slug": { "type": "string" },
+							"description": { "type": "string" }
+						}
+					},
+					"sort": { "type": "boolean" },
+					"args": { "type": "object" },
+					"_builtin": { "type": "boolean" }
+				},
+				"additionalProperties": false
+			}
+		},
+		"postTypes": {
+			"type": "object",
+			"additionalProperties": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string",
+						"description": "Name of the post type shown in the menu. Usually plural."
+					},
+					"labels": {
+						"type": "object",
+						"additionalProperties": {
+							"type": "string"
+						},
+						"description": "An array of labels for this post type."
+					},
+					"description": {
+						"type": "string",
+						"description": "A short descriptive summary of what the post type is."
+					},
+					"public": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether a post type is intended for use publicly."
+					},
+					"hierarchical": {
+						"type": "boolean",
+						"default": false,
+						"description": "Whether the post type is hierarchical."
+					},
+					"exclude_from_search": {
+						"type": "boolean",
+						"description": "Whether to exclude posts with this post type from front end search results."
+					},
+					"publicly_queryable": {
+						"type": "boolean",
+						"description": "Whether queries can be performed on the front end for the post type."
+					},
+					"show_ui": {
+						"type": "boolean",
+						"description": "Whether to generate and allow a UI for managing this post type in the admin."
+					},
+					"show_in_menu": {
+						"oneOf": [{ "type": "boolean" }, { "type": "string" }],
+						"description": "Where to show the post type in the admin menu."
+					},
+					"show_in_nav_menus": {
+						"type": "boolean",
+						"description": "Makes this post type available for selection in navigation menus."
+					},
+					"show_in_admin_bar": {
+						"type": "boolean",
+						"description": "Makes this post type available via the admin bar."
+					},
+					"show_in_rest": {
+						"type": "boolean",
+						"description": "Whether to include the post type in the REST API."
+					},
+					"rest_base": {
+						"type": "string",
+						"description": "To change the base URL of REST API route. Default is $post_type."
+					},
+					"rest_namespace": {
+						"type": "string",
+						"description": "To change the namespace URL of REST API route. Default is wp/v2."
+					},
+					"rest_controller_class": {
+						"type": "string",
+						"description": "REST API controller class name. Default is ‘WP_REST_Posts_Controller‘."
+					},
+					"autosave_rest_controller_class": {
+						"oneOf": [{ "type": "string" }, { "type": "boolean" }],
+						"description": "REST API controller class name. Default is ‘WP_REST_Autosaves_Controller‘."
+					},
+					"revisions_rest_controller_class": {
+						"oneOf": [{ "type": "string" }, { "type": "boolean" }],
+						"description": "REST API controller class name. Default is ‘WP_REST_Revisions_Controller‘."
+					},
+					"late_route_registration": {
+						"type": "boolean",
+						"description": "A flag to direct the REST API controllers for autosave / revisions should be registered before/after the post type controller."
+					},
+					"menu_position": {
+						"type": "integer",
+						"description": "The position in the menu order the post type should appear. To work, $show_in_menu must be true. Default null (at the bottom)."
+					},
+					"menu_icon": {
+						"type": "string",
+						"description": "The URL to the icon to be used for this menu. Pass a base64-encoded SVG using a data URI, which will be colored to match the color scheme — this should begin with 'data:image/svg+xml;base64,'. Pass the name of a Dashicons helper class to use a font icon, e.g. 'dashicons-chart-pie'. Pass 'none' to leave div.wp-menu-image empty so an icon can be added via CSS. Defaults to use the posts icon."
+					},
+					"capability_type": {
+						"oneOf": [
+							{ "type": "string" },
+							{ "type": "array", "items": { "type": "string" } }
+						],
+						"description": "The string to use to build the read, edit, and delete capabilities. May be passed as an array to allow for alternative plurals when using this argument as a base to construct the capabilities, e.g. array('story', 'stories'). Default 'post'."
+					},
+					"rewrite": {
+						"type": ["boolean", "object"],
+						"description": "Triggers the handling of rewrites for this post type. To prevent rewrite, set to false.",
+						"default": true,
+						"properties": {
+							"slug": {
+								"type": "string",
+								"description": "Customize the permastruct slug. Defaults to $post_type key."
+							},
+							"with_front": {
+								"type": "boolean",
+								"description": "Whether the permastruct should be prepended with WP_Rewrite::$front. Default true."
+							},
+							"feeds": {
+								"type": "boolean",
+								"description": "Whether the feed permastruct should be built for this post type. Default is value of $has_archive."
+							},
+							"pages": {
+								"type": "boolean",
+								"description": "Whether the permastruct should provide for pagination. Default true."
+							},
+							"ep_mask": {
+								"type": "integer",
+								"description": "Endpoint mask to assign. If not specified and permalink_epmask is set, inherits from $permalink_epmask. If not specified and permalink_epmask is not set, defaults to EP_PERMALINK."
+							}
+						}
+					},
+					"capabilities": {
+						"type": "array",
+						"items": { "type": "string" },
+						"description": "Array of capabilities for this post type. $capability_type is used as a base to construct capabilities by default. See get_post_type_capabilities()."
+					},
+					"map_meta_cap": {
+						"type": "boolean",
+						"description": "Whether to use the internal default meta capability handling. Default false."
+					},
+					"supports": {
+						"type": "array",
+						"description": "Core feature(s) the post type supports. Serves as an alias for calling add_post_type_support() directly.",
+						"items": {
+							"type": ["string", "object"]
+						},
+						"default": ["title", "editor"]
+					},
+					"register_meta_box_cb": {
+						"type": "callable",
+						"description": "Provide a callback function that sets up the meta boxes for the edit form. Do remove_meta_box() and add_meta_box() calls in the callback.",
+						"default": null
+					},
+					"taxonomies": {
+						"type": "array",
+						"description": "An array of taxonomy identifiers that will be registered for the post type.",
+						"items": {
+							"type": "string"
+						}
+					},
+					"has_archive": {
+						"type": ["boolean", "string"],
+						"description": "Whether there should be post type archives, or if a string, the archive slug to use. Will generate the proper rewrite rules if $rewrite is enabled.",
+						"default": false
+					},
+					"query_var": {
+						"oneOf": [{ "type": "string" }, { "type": "boolean" }],
+						"description": "Sets the query_var key for this post type. Defaults to $post_type key. If false, a post type cannot be loaded at ?{query_var}={post_slug}. If specified as a string, the query ?{query_var_string}={post_slug} will be valid."
+					},
+					"can_export": {
+						"type": "boolean",
+						"description": "Whether to allow this post type to be exported. Default true."
+					},
+					"delete_with_user": {
+						"type": "boolean",
+						"description": "Whether to delete posts of this type when deleting a user. If true, posts of this type belonging to the user will be moved to Trash when the user is deleted. If false, posts of this type belonging to the user will *not* be trashed or deleted. If not set (the default), posts are trashed if post type supports the 'author' feature. Otherwise posts are not trashed or deleted. Default null."
+					},
+					"template": {
+						"type": "array",
+						"description": "Array of blocks to use as the default initial state for an editor session. Each item should be an array containing block name and optional attributes."
+					},
+					"template_lock": {
+						"oneOf": [{ "type": "string" }, { "type": "boolean" }],
+						"description": "Whether the block template should be locked if $template is set. If set to 'all', the user is unable to insert new blocks, move existing blocks and delete blocks. If set to 'insert', the user is able to move existing blocks but is unable to insert new blocks and delete blocks. Default false."
+					},
+					"_builtin": {
+						"type": "boolean",
+						"description": "FOR INTERNAL USE ONLY! True if this post type is a native or 'built-in' post_type. Default false."
+					},
+					"_edit_link": {
+						"type": "string",
+						"description": "FOR INTERNAL USE ONLY! URL segment to use for edit link of this post type. Default 'post.php?post=%d'."
+					}
+				}
+			}
+		}
+	}
+}
