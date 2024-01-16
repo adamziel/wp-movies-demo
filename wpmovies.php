@@ -12,8 +12,6 @@
  * Text Domain:       wp-movies-demo
  */
 
-require_once __DIR__ . '/lib/custom-post-types.php';
-require_once __DIR__ . '/lib/custom-taxonomies.php';
 require_once __DIR__ . '/lib/custom-query-block.php';
 require_once __DIR__ . '/lib/db-update/index.php';
 
@@ -34,23 +32,6 @@ if ( ! is_plugin_active( 'block-interactivity-experiments/wp-directives.php' ) )
 	// Deactivate the plugin.
 	deactivate_plugins( plugin_basename( __FILE__ ) );
 	return;
-}
-
-add_action( 'init', 'auto_register_block_types' );
-
-// Register all blocks found in the `build/blocks` folder.
-function auto_register_block_types() {
-	if ( file_exists( __DIR__ . '/build/blocks/' ) ) {
-		$interactive_block_json_files     = glob( __DIR__ . '/build/blocks/interactive/*/block.json' );
-		$non_interactive_block_json_files = glob( __DIR__ . '/build/blocks/non-interactive/*/block.json' );
-		$block_json_files                 = array_merge( $interactive_block_json_files, $non_interactive_block_json_files );
-
-		// auto register all blocks that were found.
-		foreach ( $block_json_files as $filename ) {
-			$block_folder = dirname( $filename );
-			register_block_type( $block_folder );
-		};
-	};
 }
 
 function add_script_dependency( $handle, $dep, $in_footer ) {

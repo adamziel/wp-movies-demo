@@ -95,15 +95,3 @@ function wpmovies_build_query( $query ) {
 }
 
 add_action( 'pre_render_block', 'wpmovies_update_demo_query', 10, 2 );
-
-/**
- * Add the movie and the cast variations to the Query Loop block.
- */
-function wpmovies_add_query_loop_variations() {
-	wp_enqueue_script(
-		'query-loop-variations',
-		plugin_dir_url( __FILE__ ) . '../build/query-loop-variations.js',
-		array( 'wp-blocks' )
-	);
-}
-add_action( 'admin_enqueue_scripts', 'wpmovies_add_query_loop_variations' );
